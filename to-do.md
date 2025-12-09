@@ -65,18 +65,18 @@
 
 ## 3. Backend – Auth API
 
-- [ ] `controllers/userController.js`
-  - [ ] `registerUser` – `POST /api/users/register`
-    - [ ] Validate input
-    - [ ] Check for existing user by email
-    - [ ] Create user (password hashed via model)
-    - [ ] Sign JWT with user id
-    - [ ] Return `{ token, user }`
-  - [ ] `loginUser` – `POST /api/users/login`
-    - [ ] Find user by email
-    - [ ] Compare password with hash
-    - [ ] On success, sign JWT
-    - [ ] Return `{ token, user }`
+- [x] `controllers/userController.js`
+  - [x] `registerUser` – `POST /api/users/register`
+    - [x] Validate input
+    - [x] Check for existing user by email
+    - [x] Create user (password hashed via model)
+    - [x] Sign JWT with user id
+    - [x] Return `{ token, user }`
+  - [x] `loginUser` – `POST /api/users/login`
+    - [x] Find user by email
+    - [x] Compare password with hash
+    - [x] On success, sign JWT
+    - [x] Return `{ token, user }`
 - [ ] `routes/userRoutes.js`
   - [ ] `POST /api/users/register` → `registerUser`
   - [ ] `POST /api/users/login` → `loginUser`

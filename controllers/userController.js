@@ -20,7 +20,7 @@ async function getAllUsers(req, res) {
   res.json(user);
 }
 
-// >>> RGETS user by ID <<<
+// >>> GETS user by ID <<<
 function getUserById(req, res) {
   res.send(`Data for user: ${req.params.id}`);
 }
