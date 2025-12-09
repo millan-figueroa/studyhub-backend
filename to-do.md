@@ -49,17 +49,17 @@
   - [x] Fields: `name`, `email`, `password`,`role`
   - [x] `email` unique
   - [x] Pre-save hook hashing password with `bcryptjs`
-- [ ] `models/Module.js`
-  - [ ] Fields:
-    - [ ] `title` or `name` (module/course name)
-    - [ ] `description`
-    - [ ] `owner` (ObjectId, ref `User`, required)
-- [ ] `models/Task.js`
-  - [ ] Fields:
-    - [ ] `title`
-    - [ ] `description`
-    - [ ] `status` (`"To Do"`, `"In Progress"`, `"Done"`)
-    - [ ] `module` (ObjectId, ref `Module`, required)
+- [x] `models/Module.js`
+  - [x] Fields:
+    - [x] `title` or `name` (module/course name)
+    - [x] `description`
+    - [x] `owner` (ObjectId, ref `User`, required)
+- [x] `models/Task.js`
+  - [x] Fields:
+    - [x] `title`
+    - [x] `description`
+    - [x] `status` (`"To Do"`, `"In Progress"`, `"Done"`)
+    - [x] `module` (ObjectId, ref `Module`, required)
 
 ---
 

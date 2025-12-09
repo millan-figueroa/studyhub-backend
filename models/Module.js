@@ -19,6 +19,7 @@ const ModuleSchema = new mongoose.Schema(
     },
   },
   {
+    // timestamps to tell you when stuff was created
     timestamps: true,
   }
 );
