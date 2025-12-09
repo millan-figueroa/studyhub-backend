@@ -6,7 +6,7 @@ const User = require("../models/User");
 const jwtSecret = process.env.JWT_SECRET;
 const tokenExpiresIn = "2h";
 
-// gets ALL users
+// >>> GETS ALL users <<<
 async function getAllUsers(req, res) {
   // console.log(req.headers);
   console.log(req.user);
@@ -20,11 +20,58 @@ async function getAllUsers(req, res) {
   res.json(user);
 }
 
-// grabs user by id
+// >>> RGETS user by ID <<<
 function getUserById(req, res) {
   res.send(`Data for user: ${req.params.id}`);
 }
 
+// >>> REGISTER the user <<<
+async function registerUser(req, res) {
+  try {
+    // pull needed data from request body
+    const { name, email, password, role } = req.body;
+
+    // check for missing required fields (frontend validation lives in browser so we gotta check here as well)
+    if (!name || !email || !password) {
+      return res
+        .status(400)
+        .json({ message: "Pls enter name, email, and password" });
+    }
+
+    // check database to see if email is already taken
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "email already exists" });
+    }
+
+    // create the new user document
+    // password will get hashed in user model before save
+    const createdUser = await User.create({
+      name,
+      email,
+      password,
+      role: role || "user",
+    });
+
+    // send a clear success response
+    // do not include password for safety reasons
+    res.status(201).json({
+      message: "user created successfully",
+      user: {
+        id: createdUser._id,
+        name: createdUser.name,
+        email: createdUser.email,
+        role: createdUser.role,
+      },
+    });
+  } catch (err) {
+    // catch any unexpected errors to avoid crashing server
+    res.status(500).json({ message: "server error creating user" });
+  }
+}
+
+// >>> LOGIN USER <<<
+// user login - checks username/pass, check for empty fields, creates payload after signin, throw error
 async function loginUser(req, res) {
   try {
     const { email, password } = req.body;
