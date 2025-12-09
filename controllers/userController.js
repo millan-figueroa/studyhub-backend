@@ -29,7 +29,7 @@ function getUserById(req, res) {
 async function registerUser(req, res) {
   try {
     // pull needed data from request body
-    const { name, email, password, role } = req.body;
+    const { name, email, password } = req.body;
 
     // check for missing required fields (frontend validation lives in browser so we gotta check here as well)
     if (!name || !email || !password) {
@@ -45,18 +45,33 @@ async function registerUser(req, res) {
     }
 
     // create the new user document
+    // we force role to user so folks cant make themself admin on signup
     // password will get hashed in user model before save
     const createdUser = await User.create({
       name,
       email,
       password,
-      role: role || "user",
+      role: "user",
     });
 
     // send a clear success response
     // do not include password for safety reasons
+    // make a token so user is logged in right after register
+    const payload = {
+      id: createdUser._id,
+      name: createdUser.name,
+      email: createdUser.email,
+      role: createdUser.role,
+    };
+
+    const token = jwt.sign(payload, jwtSecret, {
+      expiresIn: tokenExpiresIn,
+    });
+
+    // send back token and user info (no password)
     res.status(201).json({
       message: "user created successfully",
+      token,
       user: {
         id: createdUser._id,
         name: createdUser.name,
