@@ -32,23 +32,23 @@
   - [x] `/controllers/userController.js`
   - [x] `/middleware/auth.js`
   - [x] `server.js`
-- [ ] Implement MongoDB connection in `/config/connection.js`
-  - [ ] Export an async `connectDB` (or similar) that uses `mongoose.connect(process.env.MONGO_URI)`
-  - [ ] Log success message
-- [ ] Import and call `connectDB()` in `server.js`
-- [ ] Enable middleware in `server.js`
-  - [ ] `express.json()`
-  - [ ] `cors()`
-- [ ] Add health check route `GET /api/health`
+- [x] Implement MongoDB connection in `/config/connection.js`
+  - [x] Export an async `connectDB` (or similar) that uses `mongoose.connect(process.env.MONGO_URI)`
+  - [x] Log success message
+- [x] Import and call `connectDB()` in `server.js`
+- [x] Enable middleware in `server.js`
+  - [x] `express.json()`
+  - [x] `cors()`
+- [x] Add health check route `GET /api/health`
 
 ---
 
 ## 2. Backend – Data Models (StudyHub)
 
-- [ ] `models/User.js`
-  - [ ] Fields: `name`, `email`, `password`
-  - [ ] `email` unique
-  - [ ] Pre-save hook hashing password with `bcryptjs`
+- [x] `models/User.js`
+  - [x] Fields: `name`, `email`, `password`,`role`
+  - [x] `email` unique
+  - [x] Pre-save hook hashing password with `bcryptjs`
 - [ ] `models/Module.js`
   - [ ] Fields:
     - [ ] `title` or `name` (module/course name)
@@ -145,17 +145,32 @@
 
 ---
 
+## 5A. Backend – Optional GitHub OAuth (Stretch)
+
+- [ ] `config/passport.js` already present
+  - [ ] Ensure it requires `User` model
+  - [ ] Uses `GitHubStrategy` with `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `GITHUB_CALLBACK_URL`
+- [ ] In `server.js`
+  - [ ] `require('./config/passport')`
+  - [ ] `app.use(passport.initialize())`
+- [ ] Add routes (e.g. in `routes/userRoutes.js`)
+  - [ ] `GET /api/users/auth/github` → `passport.authenticate('github', { scope: ['user:email'] })`
+  - [ ] `GET /api/users/auth/github/callback` → GitHub callback, issue JWT for the user
+- [ ] Test GitHub login flow (optional for capstone)
+
+---
+
 ## 6. Backend – Testing & Hardening
 
-- [ ] Test auth with Postman/Insomnia
-  - [ ] Register user → token returned
-  - [ ] Login user → token returned
-- [ ] Test protected routes
-  - [ ] Access without token → `401 Unauthorized`
-  - [ ] User A cannot access User B’s modules/tasks → `403 Forbidden` or `404`
-- [ ] Validate request bodies (basic checks)
-- [ ] Ensure consistent error responses
-- [ ] Clean up console.logs and unused code
+- [ ] Test auth, modules, and tasks with Postman/Insomnia
+  - [ ] No-token requests → `401`
+  - [ ] User A cannot access User B’s modules/tasks → `403` or `404`
+- [ ] `README.md` (backend)
+  - [ ] StudyHub description
+  - [ ] Setup instructions
+  - [ ] API endpoints (users, modules, tasks)
+- [ ] Ensure `.env` is not committed
+- [ ] Push backend changes to GitHub
 
 ---
 

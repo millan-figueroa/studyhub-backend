@@ -1,11 +1,12 @@
+// dotenv loads environment variables from .env into process.env.
 require("dotenv").config();
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
+const connectDB = require("./config/connection");
 
 const app = express();
 
-// Middleware
+// Middleware ** expres is the core framwork, and cors allows the back to talk to the front
 app.use(cors());
 app.use(express.json());
 
@@ -18,23 +19,13 @@ app.get("/api/health", (req, res) => {
 const PORT = process.env.PORT || 3001;
 const MONGO_URI = process.env.MONGO_URI;
 
-if (!MONGO_URI) {
-  console.error(
-    "Missing MONGO_URI. Set it in .env (locally) or in Render env vars."
-  );
-  process.exit(1);
-}
-
 // connect to MongoDB, then start server
-mongoose
-  .connect(MONGO_URI)
-  .then(() => {
-    console.log("✅ MongoDB connected");
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error("Mongo connection error:", err);
-    process.exit(1);
+const startServer = async () => {
+  await connectDB(); // handles its own errors/exit if it fails
+
+  app.listen(PORT, () => {
+    console.log(`💎 Server running on port ${PORT}`);
   });
+};
+
+startServer();
