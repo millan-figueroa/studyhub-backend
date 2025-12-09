@@ -1,3 +1,5 @@
+// This file holds connection logic separate from server.js
+
 const mongoose = require("mongoose");
 
 const connectDB = async () => {
