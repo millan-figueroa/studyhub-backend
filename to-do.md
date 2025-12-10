@@ -107,41 +107,41 @@
   - [x] `deleteTask` – `DELETE /api/tasks/:taskId`
     - [x] Same ownership process as update
     - [x] Delete task
-- [ ] `routes/taskRoutes.js`
-  - [ ] `GET /api/modules/:moduleId/tasks`
-  - [ ] `POST /api/modules/:moduleId/tasks`
-  - [ ] `PUT /api/tasks/:taskId`
-  - [ ] `DELETE /api/tasks/:taskId`
-  - [ ] Protect all routes with `auth` middleware
-- [ ] Mount `taskRoutes` in `server.js` (e.g. at `/api` or `/api/tasks` + nested)
+- [x] `routes/taskRoutes.js`
+  - [x] `GET /api/modules/:moduleId/tasks`
+  - [x] `POST /api/modules/:moduleId/tasks`
+  - [x] `PUT /api/tasks/:taskId`
+  - [x] `DELETE /api/tasks/:taskId`
+  - [x] Protect all routes with `auth` middleware
+- [x] Mount `taskRoutes` in `server.js` (e.g. at `/api` or `/api/tasks` + nested)
 
 ---
 
 ## 5. Backend – Tasks API (Nested & Secure)
 
-- [ ] Create `controllers/taskController.js`
-  - [ ] `getTasksFormodule` – `GET /api/modules/:moduleId/tasks`
-    - [ ] Verify module exists
-    - [ ] Ensure `module.owner === req.user.id`
-    - [ ] Return tasks for that module
-  - [ ] `createTask` – `POST /api/modules/:moduleId/tasks`
-    - [ ] Verify ownership of parent module
-    - [ ] Create task with `project = moduleId`
-  - [ ] `updateTask` – `PUT /api/tasks/:taskId`
-    - [ ] Find task by `taskId`
-    - [ ] Populate or fetch parent module
-    - [ ] Ensure `module.owner === req.user.id`
-    - [ ] Update title/description/status
-  - [ ] `deleteTask` – `DELETE /api/tasks/:taskId`
-    - [ ] Same ownership process as update
-    - [ ] Delete task
-- [ ] Create `routes/taskRoutes.js`
-  - [ ] `GET /api/modules/:moduleId/tasks`
-  - [ ] `POST /api/modules/:moduleId/tasks`
-  - [ ] `PUT /api/tasks/:taskId`
-  - [ ] `DELETE /api/tasks/:taskId`
-  - [ ] Protect all with `authMiddleware`
-- [ ] Mount `taskRoutes` in `server.js` (e.g., `/api`)
+- [x] Create `controllers/taskController.js`
+  - [x] `getTasksFormodule` – `GET /api/modules/:moduleId/tasks`
+    - [x] Verify module exists
+    - [x] Ensure `module.owner === req.user.id`
+    - [x] Return tasks for that module
+  - [x] `createTask` – `POST /api/modules/:moduleId/tasks`
+    - [x] Verify ownership of parent module
+    - [x] Create task with `project = moduleId`
+  - [x] `updateTask` – `PUT /api/tasks/:taskId`
+    - [x] Find task by `taskId`
+    - [x] Populate or fetch parent module
+    - [x] Ensure `module.owner === req.user.id`
+    - [x] Update title/description/status
+  - [x] `deleteTask` – `DELETE /api/tasks/:taskId`
+    - [x] Same ownership process as update
+    - [x] Delete task
+- [x] Create `routes/taskRoutes.js`
+  - [x] `GET /api/modules/:moduleId/tasks`
+  - [x] `POST /api/modules/:moduleId/tasks`
+  - [x] `PUT /api/tasks/:taskId`
+  - [x] `DELETE /api/tasks/:taskId`
+  - [x] Protect all with `authMiddleware`
+- [x] Mount `taskRoutes` in `server.js` (e.g., `/api`)
 
 ---
 
