@@ -77,9 +77,9 @@
     - [x] Compare password with hash
     - [x] On success, sign JWT
     - [x] Return `{ token, user }`
-- [ ] `routes/userRoutes.js`
-  - [ ] `POST /api/users/register` → `registerUser`
-  - [ ] `POST /api/users/login` → `loginUser`
+- [x] `routes/userRoutes.js`
+  - [x] `POST /api/users/register` → `registerUser`
+  - [x] `POST /api/users/login` → `loginUser`
 - [ ] `middleware/auth.js`
   - [ ] Read `Authorization: Bearer <token>`
   - [ ] Verify JWT using `JWT_SECRET`
