@@ -142,3 +142,10 @@ async function loginUser(req, res) {
     res.status(500).json({ message: "server error during login" });
   }
 }
+
+module.exports = {
+  getAllUsers,
+  getUserById,
+  registerUser,
+  loginUser,
+};

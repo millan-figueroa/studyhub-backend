@@ -1,12 +1,12 @@
 const express = require("express");
 const {
-  getAllUsers,
-  getUserById,
   registerUser,
   loginUser,
+  getAllUsers,
+  getUserById,
 } = require("../controllers/userController");
 
-const auth = require("../middleware/auth");
+const { auth } = require("../middleware/auth");
 
 const router = express.Router();
 
