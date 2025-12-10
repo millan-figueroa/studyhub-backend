@@ -69,6 +69,67 @@ async function createModule(req, res) {
   }
 }
 
+// >>> UPDATE existing module <<<
+// only owner of module can update it
+async function updateModule(req, res) {
+  try {
+    const moduleId = req.params.id;
+    const { title, description } = req.body;
+
+    // find module owned by the current user
+    const mod = await Module.findOne({
+      _id: moduleId,
+      owner: req.user.id, // authorization check
+    });
+
+    if (!mod) {
+      return res.status(404).json({ message: "module not found" });
+    }
+
+    // update fields if they were sent
+    if (title !== undefined) {
+      mod.title = title;
+    }
+    if (description !== undefined) {
+      mod.description = description;
+    }
+
+    const updated = await mod.save();
+
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ message: "server error updating module" });
+  }
+}
+
+// >>> DELETE module <<<
+// only owner can delete, and we also clean up tasks for that module
+async function deleteModule(req, res) {
+  try {
+    const moduleId = req.params.id;
+
+    // find module owned by the user
+    const mod = await Module.findOne({
+      _id: moduleId,
+      owner: req.user.id,
+    });
+
+    if (!mod) {
+      return res.status(404).json({ message: "module not found" });
+    }
+
+    // delete all tasks tied to this module so they dont just sit there
+    await Task.deleteMany({ module: mod._id });
+
+    // delete the module itself
+    await mod.deleteOne();
+
+    res.json({ message: "module and tasks deleted" });
+  } catch (err) {
+    res.status(500).json({ message: "server error deleting module" });
+  }
+}
+
 module.exports = {
   getModules,
   getModuleById,
