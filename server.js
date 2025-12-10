@@ -12,6 +12,8 @@ app.use(express.json());
 
 // mounts user routes
 const userRoutes = require("./routes/userRoutes");
+const moduleRoutes = require("./routes/moduleRoutes");
+app.use("/api/modules", moduleRoutes);
 
 // test route
 app.get("/api/health", (req, res) => {
