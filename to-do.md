@@ -80,33 +80,33 @@
 - [x] `routes/userRoutes.js`
   - [x] `POST /api/users/register` → `registerUser`
   - [x] `POST /api/users/login` → `loginUser`
-- [ ] `middleware/auth.js`
-  - [ ] Read `Authorization: Bearer <token>`
-  - [ ] Verify JWT using `JWT_SECRET`
-  - [ ] Attach `req.user = { id: decoded.id }`
-  - [ ] Respond with `401` if missing/invalid
-- [ ] Mount `userRoutes` in `server.js` under `/api/users`
+- [x] `middleware/auth.js`
+  - [x] Read `Authorization: Bearer <token>`
+  - [x] Verify JWT using `JWT_SECRET`
+  - [x] Attach `req.user = { id: decoded.id }`
+  - [x] Respond with `401` if missing/invalid
+- [x] Mount `userRoutes` in `server.js` under `/api/users`
 
 ---
 
 ## 4. Backend – Modules API
 
-- [ ] `controllers/taskController.js`
-  - [ ] `getTasksForModule` – `GET /api/modules/:moduleId/tasks`
-    - [ ] Verify module exists
-    - [ ] Ensure `module.owner === req.user.id`
-    - [ ] Return tasks for that module
-  - [ ] `createTask` – `POST /api/modules/:moduleId/tasks`
-    - [ ] Verify ownership of parent module
-    - [ ] Create task with `module = moduleId`
-  - [ ] `updateTask` – `PUT /api/tasks/:taskId`
-    - [ ] Find task by `taskId`
-    - [ ] Find/populate parent module
-    - [ ] Ensure `module.owner === req.user.id`
-    - [ ] Update title/description/status
-  - [ ] `deleteTask` – `DELETE /api/tasks/:taskId`
-    - [ ] Same ownership process as update
-    - [ ] Delete task
+- [x] `controllers/taskController.js`
+  - [x] `getTasksForModule` – `GET /api/modules/:moduleId/tasks`
+    - [x] Verify module exists
+    - [x] Ensure `module.owner === req.user.id`
+    - [x] Return tasks for that module
+  - [x] `createTask` – `POST /api/modules/:moduleId/tasks`
+    - [x] Verify ownership of parent module
+    - [x] Create task with `module = moduleId`
+  - [x] `updateTask` – `PUT /api/tasks/:taskId`
+    - [x] Find task by `taskId`
+    - [x] Find/populate parent module
+    - [x] Ensure `module.owner === req.user.id`
+    - [x] Update title/description/status
+  - [x] `deleteTask` – `DELETE /api/tasks/:taskId`
+    - [x] Same ownership process as update
+    - [x] Delete task
 - [ ] `routes/taskRoutes.js`
   - [ ] `GET /api/modules/:moduleId/tasks`
   - [ ] `POST /api/modules/:moduleId/tasks`
