@@ -59,15 +59,9 @@ UserSchema.pre("save", function (next) {
 
 // helper method to login, compares password to stored hash
 // note: name matches what you use in loginUser: user.isCorrectPassword(...)
-UserSchema.pre("save", async function () {
-  // if password hasn't changed, skip hashing to prevent double-hashing
-  if (!this.isModified("password")) {
-    return;
-  }
-
-  // make the salt and hash the password
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-});
+// helper method to login, compares password to stored hash
+UserSchema.methods.isCorrectPassword = function (enteredPassword) {
+  return bcrypt.compare(enteredPassword, this.password);
+};
 
 module.exports = mongoose.model("User", UserSchema);

@@ -4,7 +4,7 @@ const User = require("../models/User");
 // grab secret and expiration from env
 // token stores user id so they stay logged in
 const jwtSecret = process.env.JWT_SECRET;
-const tokenExpiresIn = "2h";
+const tokenExpiresIn = "24h";
 
 // >>> GETS ALL users <<<
 async function getAllUsers(req, res) {
@@ -14,7 +14,7 @@ async function getAllUsers(req, res) {
   if (!req.user) {
     return res
       .status(401)
-      .json({ message: "You must be logged in to see this!" });
+      .json({ message: "🔐 You must be logged in to see this!" });
   }
   const user = await User.find();
   res.json(user);
@@ -36,13 +36,13 @@ async function registerUser(req, res) {
     if (!name || !email || !password) {
       return res
         .status(400)
-        .json({ message: "Pls enter name, email, and password" });
+        .json({ message: "🚨 Pls enter name, email, and password" });
     }
 
     // check database to see if email is already taken
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: "email already exists" });
+      return res.status(400).json({ message: "💀 Email already exists" });
     }
 
     // create the new user document
@@ -71,7 +71,7 @@ async function registerUser(req, res) {
 
     // send back token and user info (no password)
     res.status(201).json({
-      message: "user created successfully",
+      message: "⭐ User created successfully ⭐",
       token,
       user: {
         id: createdUser._id,
@@ -81,13 +81,13 @@ async function registerUser(req, res) {
       },
     });
   } catch (err) {
-    console.log("error in registerUser:", err.message);
-    res.status(500).json({ message: "server error creating user" });
+    console.log("💀 Error in registerUser:", err.message);
+    res.status(500).json({ message: "💀 Server error creating user" });
   }
 }
 
 // >>> LOGIN USER <<<
-// user login - checks username/pass, check for empty fields, creates payload after signin, throw error
+// user login - checks email/pass, makes token if ok
 async function loginUser(req, res) {
   try {
     const { email, password } = req.body;
@@ -96,25 +96,30 @@ async function loginUser(req, res) {
     if (!email || !password) {
       return res
         .status(400)
-        .json({ message: "you must enter email and password" });
+        .json({ message: "🚨 You must enter email and password" });
     }
 
     // try to find user by email
-    // if no user found, we return same error to avoid giving hints
     const user = await User.findOne({ email });
+
+    // debug log to see if we found the user
+    console.log("login attempt:", email, "found user?", !!user);
+
     if (!user) {
-      return res.status(400).json({ message: "Incorrect email or password" });
+      return res
+        .status(400)
+        .json({ message: "💀 Incorrect email or password" });
     }
 
     // compare password using helper on user model
-    // if password does not match we return same message for security
     const passwordOk = await user.isCorrectPassword(password);
     if (!passwordOk) {
-      return res.status(400).json({ message: "Incorrect email or password" });
+      return res
+        .status(400)
+        .json({ message: "💀 Incorrect email or password" });
     }
 
     // create the token payload
-    // store small info so frontend knows who is logged in
     const payload = {
       id: user._id,
       name: user.name,
@@ -124,12 +129,12 @@ async function loginUser(req, res) {
 
     // sign token so user can stay logged in
     const token = jwt.sign(payload, jwtSecret, {
-      // grab expiration time from var
       expiresIn: tokenExpiresIn,
     });
 
-    // send token and basic user data but not the passwrd
-    res.json({
+    // send token and basic user data but not the password
+    res.status(200).json({
+      message: "⭐ Login successful ⭐",
       token,
       user: {
         id: user._id,
@@ -139,8 +144,8 @@ async function loginUser(req, res) {
       },
     });
   } catch (err) {
-    // server error, something unexpected happened
-    res.status(500).json({ message: "server error during login" });
+    console.log("login error:", err.message);
+    res.status(500).json({ message: "❌ server error during login" });
   }
 }
 

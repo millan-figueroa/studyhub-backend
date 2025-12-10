@@ -1,0 +1,47 @@
+to register admin - register regular user, change role on compass, test.
+
+****** POSTMAN TESTS:
+-----------------------------------------------------
+|<<<<<<<< Routes (Admin/ User) >>>>>>>>>>>>|
+Register → POST http://localhost:3001/api/users/register → 201: token + user object
+Login → POST http://localhost:3001/api/users/login → token + user object
+
+|<<<<<<<< Routes (Admin) >>>>>>>>>>>>|
+Create → POST http://localhost:3001/api/modules  → 201 + success message
+Get Module by Id → GET http://localhost:3001/api/modules/:id → module           
+Get all modules → GET http://localhost:3001/api/modules → all modules               
+Update module PUT http://localhost:3001/api/modules/:id → 200 + updated module
+
+-----------------------------------------------------
+|<<<<<<<< Headers >>>>>>>>>>>>|
+Content-Type: application/json
+Make sure (no Authorization header)
+Authorization: Bearer <token>
+-----------------------------------------------------
+|<<<<<<<< Register >>>>>>>>>>>>|
+{
+  "name": "studyhub-user5",
+  "email": "millan5@example.com",
+  "password": "test123"
+}
+
+Login
+{
+  "email": "millan4@example.com",
+  "password": "test123"
+}
+
+Create module (POST /api/modules) → 201
+
+Get all modules (GET /api/modules) → 200
+
+Get single module (GET /api/modules/:id)
+
+Update & delete
+
+-----------------------------------------------------
+Status Codes
+Success:200
+Fail: 400/ 500
+
+NEXT STEPS: Continue to debug login function, hashed passwords not being saved
