@@ -10,10 +10,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// mounts user routes
+const userRoutes = require("./routes/userRoutes");
+
 // test route
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
 });
+
+// handle all user auth routes like register and login
+app.use("/api/users", userRoutes);
 
 // get env vars
 const PORT = process.env.PORT || 3001;
