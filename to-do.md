@@ -163,14 +163,25 @@
 ## 6. Backend – Testing & Hardening
 
 - [ ] Test auth, modules, and tasks with Postman/Insomnia
-  - [ ] No-token requests → `401`
-  - [ ] User A cannot access User B’s modules/tasks → `403` or `404`
-- [ ] `README.md` (backend)
-  - [ ] StudyHub description
-  - [ ] Setup instructions
-  - [ ] API endpoints (users, modules, tasks)
-- [ ] Ensure `.env` is not committed
-- [ ] Push backend changes to GitHub
+  - [ ] Auth
+    - [x] Register user -> returns token and user object
+    - [ ] Login user -> returns token and user object
+    - [x] No-token request to protected route -> `401`
+  - [ ] Modules
+    - [ ] Create module (POST /api/modules) -> `201` + module data
+    - [ ] Get all modules for logged-in user (GET /api/modules) -> `200` + only their modules
+    - [ ] Get single module by id (GET /api/modules/:id) -> `200` + module data
+    - [ ] Update module (PUT /api/modules/:id) -> `200` + updated module
+    - [ ] Delete module (DELETE /api/modules/:id) -> `200` or `204`
+  - [ ] Tasks (nested under modules)
+    - [ ] Create task for a module (POST /api/modules/:moduleId/tasks) -> `201` + task data
+    - [ ] Get tasks for a module (GET /api/modules/:moduleId/tasks) -> `200` + tasks array
+    - [ ] Update task (PUT /api/tasks/:taskId) -> `200` + updated task
+    - [ ] Delete task (DELETE /api/tasks/:taskId) -> `200` + confirmation
+  - [ ] Authorization / ownership
+    - [ ] User A cannot see User B’s modules -> `404` (or `403`)
+    - [ ] User A cannot see User B’s tasks -> `404` (or `403`)
+    - [ ] User A cannot update/delete User B’s modules/tasks -> `403` or `404`
 
 ---
 

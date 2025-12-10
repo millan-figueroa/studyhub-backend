@@ -23,31 +23,43 @@ const UserSchema = new mongoose.Schema(
     role: {
       // allows diffeernt users to have different permissions (create/modify module)
       type: String,
-      enum: ["admin", "student"],
-      default: "student", // most users will be students
+      enum: ["admin", "user"], // only these 2 are allowed
+      default: "user", // most users will be users
     },
   },
   {
+    // adds createdAt and updatedAt automaticaly
     timestamps: true, // to help keep track of stuff (join, modify info, upload tasks)
   }
 );
 
 // hash password before saving
-UserSchema.pre("save", async function (next) {
-  // if password hasn't changed, skip hashing to prevent double-hashing
-  if (!this.isModified("password")) return next();
+// this version uses simple callbacks so next is always a real function
+UserSchema.pre("save", function (next) {
+  const user = this;
 
-  try {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
-  } catch (err) {
-    next(err);
+  // if password hasn't changed, skip hashing to prevent double-hashing
+  if (!user.isModified("password")) {
+    return next();
   }
+
+  // make the salt and hash the password
+  bcrypt.genSalt(10, function (err, salt) {
+    if (err) return next(err);
+
+    bcrypt.hash(user.password, salt, function (err, hash) {
+      if (err) return next(err);
+
+      // replace plain password with hashed version
+      user.password = hash;
+      // next();
+    });
+  });
 });
 
 // helper method to login, compares password to stored hash
-UserSchema.methods.matchPassword = function (enteredPassword) {
+// note: name matches what you use in loginUser: user.isCorrectPassword(...)
+UserSchema.methods.isCorrectPassword = function (enteredPassword) {
   return bcrypt.compare(enteredPassword, this.password);
 };
 

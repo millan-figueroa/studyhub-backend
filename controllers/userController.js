@@ -30,6 +30,7 @@ async function registerUser(req, res) {
   try {
     // pull needed data from request body
     const { name, email, password } = req.body;
+    console.log("hit registerUser route", req.body);
 
     // check for missing required fields (frontend validation lives in browser so we gotta check here as well)
     if (!name || !email || !password) {
@@ -80,7 +81,7 @@ async function registerUser(req, res) {
       },
     });
   } catch (err) {
-    // catch any unexpected errors to avoid crashing server
+    console.log("error in registerUser:", err.message);
     res.status(500).json({ message: "server error creating user" });
   }
 }

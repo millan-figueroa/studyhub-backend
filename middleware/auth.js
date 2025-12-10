@@ -9,6 +9,7 @@ const tokenExpiresIn = "2h";
 // if token is valid we attach small user info to req.user
 // if not valid we block request
 function auth(req, res, next) {
+  console.log("auth middleware hit on:", req.method, req.originalUrl);
   // token could come in different places
   let token = req.body?.token || req.query?.token || req.headers?.authorization;
 
