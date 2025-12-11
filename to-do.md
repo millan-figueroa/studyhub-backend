@@ -145,21 +145,6 @@
 
 ---
 
-## 5A. Backend – Optional GitHub OAuth (Stretch)
-
-- [ ] `config/passport.js` already present
-  - [ ] Ensure it requires `User` model
-  - [ ] Uses `GitHubStrategy` with `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `GITHUB_CALLBACK_URL`
-- [ ] In `server.js`
-  - [ ] `require('./config/passport')`
-  - [ ] `app.use(passport.initialize())`
-- [ ] Add routes (e.g. in `routes/userRoutes.js`)
-  - [ ] `GET /api/users/auth/github` → `passport.authenticate('github', { scope: ['user:email'] })`
-  - [ ] `GET /api/users/auth/github/callback` → GitHub callback, issue JWT for the user
-- [ ] Test GitHub login flow (optional for capstone)
-
----
-
 ## 6. Backend – Testing & Hardening
 
 - ### Test auth, modules, and tasks with Postman
@@ -202,3 +187,16 @@
 - [ ] Push latest backend code to GitHub
 
 ---
+
+## 8. Backend – Optional GitHub OAuth (Stretch)
+
+- [ ] `config/passport.js` already present
+  - [ ] Ensure it requires `User` model
+  - [ ] Uses `GitHubStrategy` with `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `GITHUB_CALLBACK_URL`
+- [ ] In `server.js`
+  - [ ] `require('./config/passport')`
+  - [ ] `app.use(passport.initialize())`
+- [ ] Add routes (e.g. in `routes/userRoutes.js`)
+  - [ ] `GET /api/users/auth/github` → `passport.authenticate('github', { scope: ['user:email'] })`
+  - [ ] `GET /api/users/auth/github/callback` → GitHub callback, issue JWT for the user
+- [ ] Test GitHub login flow (optional for capstone)
