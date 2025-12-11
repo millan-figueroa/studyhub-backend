@@ -165,11 +165,11 @@
 - ### Test auth, modules, and tasks with Postman
   - [ ] Auth
     - [x] (User) Register -> returns token and user object
-    - [x] (Admin) Register -> returns token and user object
+    - [ ] (Admin) Register -> returns token and user object
     - [ ] (User) Login -> returns token and user object
     - [ ] (Admin) Login -> returns token and user object
-    - [x] No-token request to protected route -> `401`
-    - [x] Error - "Email already exists" -> `400` Bad Request
+    - [ ] No-token request to protected route -> `401`
+    - [ ] Error - "Email already exists" -> `400` Bad Request
   - [ ] Modules
     - [ ] (Admin) Create module (POST /api/modules) -> `201` + module data
     - [ ] Get all modules for logged-in user (GET /api/modules) -> `200` + only their modules
