@@ -178,10 +178,10 @@
     - [x] (User) Update module (PUT /api/modules/:id) -> `200` + updated module
     - [x] (User) Delete module (DELETE /api/modules/:id) -> `200` or `204`
   - [ ] Tasks CRUD (nested under modules)
-    - [ ] (User) Create task for a module (POST /api/modules/:moduleId/tasks) -> `201` + task data
-    - [ ] (User) Get tasks for a module (GET /api/modules/:moduleId/tasks) -> `200` + tasks array
-    - [ ] (User) Update task (PUT /api/tasks/:taskId) -> `200` + updated task
-    - [ ] (User) Delete task (DELETE /api/tasks/:taskId) -> `200` + confirmation
+    - [x] (User) Create task for a module (POST /api/modules/:moduleId/tasks) -> `201` + task data
+    - [x] (User) Get tasks for a module (GET /api/modules/:moduleId/tasks) -> `200` + tasks array
+    - [x] (User) Update task (PUT /api/tasks/:taskId) -> `200` + updated task
+    - [x] (User) Delete task (DELETE /api/tasks/:taskId) -> `200` + confirmation
   - [ ] Authorization / ownership
     - [ ] (User) User A cannot see User B’s modules -> `404` (or `403`)
     - [ ] (User) User A cannot see User B’s tasks -> `404` (or `403`)
