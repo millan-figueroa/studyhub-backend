@@ -29,14 +29,14 @@ function getUserById(req, res) {
 async function registerUser(req, res) {
   try {
     // pull needed data from request body
-    const { name, email, password } = req.body;
+    const { username, email, password } = req.body;
     console.log("hit registerUser route", req.body);
 
     // check for missing required fields (frontend validation lives in browser so we gotta check here as well)
-    if (!name || !email || !password) {
+    if (!username || !email || !password) {
       return res
         .status(400)
-        .json({ message: "🚨 Pls enter name, email, and password" });
+        .json({ message: "🚨 Pls enter username, email, and password" });
     }
 
     // check database to see if email is already taken
@@ -49,7 +49,7 @@ async function registerUser(req, res) {
     // we force role to user so folks cant make themself admin on signup
     // password will get hashed in user model before save
     const createdUser = await User.create({
-      name,
+      username,
       email,
       password,
       role: "user",
@@ -60,7 +60,7 @@ async function registerUser(req, res) {
     // make a token so user is logged in right after register
     const payload = {
       id: createdUser._id,
-      name: createdUser.name,
+      username: createdUser.username,
       email: createdUser.email,
       role: createdUser.role,
     };
@@ -75,7 +75,7 @@ async function registerUser(req, res) {
       token,
       user: {
         id: createdUser._id,
-        name: createdUser.name,
+        username: createdUser.username,
         email: createdUser.email,
         role: createdUser.role,
       },
@@ -122,7 +122,7 @@ async function loginUser(req, res) {
     // create the token payload
     const payload = {
       id: user._id,
-      name: user.name,
+      username: user.username,
       email: user.email,
       role: user.role,
     };
@@ -138,7 +138,7 @@ async function loginUser(req, res) {
       token,
       user: {
         id: user._id,
-        name: user.name,
+        username: user.username,
         email: user.email,
         role: user.role,
       },

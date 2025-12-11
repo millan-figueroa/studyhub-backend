@@ -21,7 +21,7 @@ const taskSchema = new mongoose.Schema(
     // status to track progress, we keep it simple with 3 choices
     status: {
       type: String,
-      enum: ["To Do", "In Progress", "Done"],
+      enum: ["todo", "in-progress", "done"],
       default: "To Do",
     },
 

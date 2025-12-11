@@ -3,9 +3,10 @@ const bcrypt = require("bcryptjs"); // safely hash passwrds before storing them
 
 const userSchema = new mongoose.Schema(
   {
-    name: {
+    username: {
       type: String,
       required: true,
+      unique: true,
       trim: true, //automaticlly removes extra spaces
     },
     email: {

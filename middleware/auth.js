@@ -30,7 +30,7 @@ function auth(req, res, next) {
     });
 
     // attach user data to request
-    // has id, name, email, role (no password)
+    // has id, username, email, role (no password)
     req.user = decoded;
   } catch (err) {
     return res.status(401).json({ message: "invalid token, login again" });
@@ -56,7 +56,7 @@ function adminOnly(req, res, next) {
 function signToken(user) {
   const payload = {
     id: user.id || user._id,
-    name: user.name,
+    username: user.username,
     email: user.email,
     role: user.role,
   };
