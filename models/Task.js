@@ -22,7 +22,7 @@ const taskSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: ["todo", "in-progress", "done"],
-      default: "To Do",
+      default: "todo",
     },
 
     // this links the task to the module it belongs to

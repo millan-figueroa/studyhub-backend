@@ -37,7 +37,6 @@ async function createTask(req, res) {
       return res.status(400).json({ message: "title is required" });
     }
 
-    // verify the module belongs to this user
     const mod = await Module.findOne({
       _id: moduleId,
       owner: req.user.id,
@@ -47,7 +46,6 @@ async function createTask(req, res) {
       return res.status(404).json({ message: "module not found" });
     }
 
-    // create new task tied to the module
     const newTask = await Task.create({
       title,
       description,
@@ -57,6 +55,7 @@ async function createTask(req, res) {
 
     res.status(201).json(newTask);
   } catch (err) {
+    console.error("createTask error:", err);
     res.status(500).json({ message: "server error creating task" });
   }
 }
