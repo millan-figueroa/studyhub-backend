@@ -165,8 +165,8 @@
 - ### Test auth, modules, and tasks with Postman
   - [ ] Auth
     - [x] (User) Register -> returns token and user object
-    - [ ] (Admin) Register -> returns token and user object
-    - [ ] (User) Login -> returns token and user object
+    - [] (Admin) Register -> returns token and user object
+    - [x] (User) Login -> returns token and user object
     - [ ] (Admin) Login -> returns token and user object
     - [ ] No-token request to protected route -> `401`
     - [ ] Error - "Email already exists" -> `400` Bad Request
