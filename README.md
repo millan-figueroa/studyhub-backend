@@ -10,11 +10,13 @@ Creates a new user.
 
 Request Body:
 
+```bash
 {
 "name": "Alice",
 "email": "alice@example.com",
 "password": "123456"
 }
+```
 
 ### POST /api/users/login
 
@@ -22,21 +24,24 @@ Logs a user in and returns a JWT.
 
 Request Body:
 
+```bash
 {
 "email": "alice@example.com",
 "password": "123456"
 }
+```
 
 Sample Response:
 
+```bash
 {
 "token": "jwt-token-here",
-"user": {
+"user": String,
 "id": "USER_ID",
 "name": "Alice",
 "email": "alice@example.com"
 }
-}
+```
 
 ### Module Routes (/api/modules)
 
@@ -54,19 +59,23 @@ Creates a new module.
 
 Request Body:
 
+```bash
 {
 "name": "React Deep Dive",
 "description": "Week-long review of React and hooks"
 }
+```
 
 Sample Response:
 
+```bash
 {
 "\_id": "MODULE_ID",
 "name": "React Deep Dive",
 "description": "Week-long review of React and hooks",
 "user": "USER_ID"
 }
+```
 
 ### PUT /api/modules/:moduleId
 
@@ -74,10 +83,12 @@ Updates an existing module.
 
 Request Body Example:
 
+```bash
 {
 "name": "Backend Review",
 "description": "Focus on Express, MongoDB, and auth"
 }
+```
 
 ### DELETE /api/modules/:moduleId
 
@@ -94,6 +105,7 @@ Returns all study tasks inside the module.
 
 Sample Response:
 
+```bash
 [
 {
 "_id": "TASK_ID",
@@ -103,6 +115,7 @@ Sample Response:
 "module": "MODULE_ID"
 }
 ]
+```
 
 ### POST /api/modules/:moduleId/tasks
 
@@ -110,11 +123,13 @@ Creates a new task.
 
 Request Body:
 
+```bash
 {
 "title": "Practice Mongo queries",
 "description": "Use Compass and shell to write queries",
 "status": "To Do"
 }
+```
 
 ### PUT /api/modules/:moduleId/tasks/:taskId
 
@@ -122,11 +137,13 @@ Updates a task.
 
 Request Body Example:
 
+```bash
 {
 "title": "Practice Mongo queries",
 "description": "Focus on aggregation pipeline",
 "status": "In Progress"
 }
+```
 
 ### DELETE /api/modules/:moduleId/tasks/:taskId
 
