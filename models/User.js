@@ -1,7 +1,7 @@
 const mongoose = require("mongoose"); // defines schema/ model
 const bcrypt = require("bcryptjs"); // safely hash passwrds before storing them
 
-const UserSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -34,34 +34,20 @@ const UserSchema = new mongoose.Schema(
 );
 
 // hash password before saving
-// this version uses simple callbacks so next is always a real function
-UserSchema.pre("save", function (next) {
-  const user = this;
-
-  // if password hasn't changed, skip hashing to prevent double-hashing
-  if (!user.isModified("password")) {
-    return next();
+userSchema.pre("save", async function (next) {
+  // only hash if password is new or changed
+  if (this.isNew || this.isModified("password")) {
+    // generate salt rounds and hash password
+    const saltRounds = 10;
+    this.password = await bcrypt.hash(this.password, saltRounds);
   }
-
-  // make the salt and hash the password
-  bcrypt.genSalt(10, function (err, salt) {
-    if (err) return next(err);
-
-    bcrypt.hash(user.password, salt, function (err, hash) {
-      if (err) return next(err);
-
-      // replace plain password with hashed version
-      user.password = hash;
-      // next();
-    });
-  });
 });
 
 // helper method to login, compares password to stored hash
 // note: name matches what you use in loginUser: user.isCorrectPassword(...)
 // helper method to login, compares password to stored hash
-UserSchema.methods.isCorrectPassword = function (enteredPassword) {
-  return bcrypt.compare(enteredPassword, this.password);
+userSchema.methods.isCorrectPassword = async function (password) {
+  return bcrypt.compare(password, this.password);
 };
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("User", userSchema);
